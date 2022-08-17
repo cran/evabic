@@ -6,13 +6,18 @@
 #'
 #' @return a vector of the same size
 #'
+#' @keywords internal
+#'
 #' @examples
 #' x <- c(a = TRUE, b = FALSE, c = FALSE, d = TRUE)
 #' evabic:::nl2c(x)
 #'
 nl2c <- function(x) {
   if (is.logical(x)) {
-    stopifnot(!is.null(names(x)))
+    if (is.null(names(x))) {
+      stop("You need names for your logical vector. ",
+           "Consider using 'evabic::add_names'.")
+      }
     return(names(x)[x])
   } else {
     return(x)
@@ -24,6 +29,8 @@ nl2c <- function(x) {
 #' @param n The number of time to repeat
 #'
 #' @return A character.
+#'
+#' @keywords internal
 #'
 rep_0 <- function(n){
   paste(rep(0, n), collapse = "")
